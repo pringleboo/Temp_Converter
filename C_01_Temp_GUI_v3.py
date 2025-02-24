@@ -33,7 +33,7 @@ class Converter:
         self.temp_entry.grid(row=2, padx=10, pady=10)
 
         error = "Please enter a number"
-        self.answer_error = Label(self.temp_frame, text=error, fg="#004C99")
+        self.answer_error = Label(self.temp_frame, text=error, fg="#004C99", font=("Arial", "13", "bold"))
         self.answer_error.grid(row=3)
 
         # Conversion, help and history / export buttons
@@ -74,24 +74,21 @@ class Converter:
         print("to convert", to_convert)
 
         # Reset label and entry box (if we had an error)
-        self.answer_error.config(fg="#004C99", font=("Arial", "13", "bold"))
+        self.answer_error.config(fg="#004C99", font=("Arial", "11", "bold"))
         self.temp_entry.config(bg="#FFFFFF")
-
-        error = f"Enter a number more than / equal to {min_temp}"
-        has_errors = "no"
 
         # Checks that amount to be converted is a number above absolute zero
         try:
             to_convert = float(to_convert)
             if to_convert >= min_temp:
                 error = ""
-                self.convert(min_temp)
+                self.convert(min_temp, to_convert)
 
             else:
                 error = "Too Low"
 
         except ValueError:
-            error = "Please enter a number"
+            error = f"Enter a number more than / equal to {min_temp}"
 
         # Display the error if necessary
         if error != "":
