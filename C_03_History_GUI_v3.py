@@ -122,7 +122,7 @@ class HistoryExport:
 
         # Button list (button text | bg colour | command | row | column)
         button_details_list = [
-            ["Export", "#004C99", "", 0, 0],
+            ["Export", "#004C99", lambda: self.export_data(calculations), 0, 0],
             ["Close", "#666666", partial(self.close_history, partner), 0, 1]
         ]
 
@@ -145,6 +145,13 @@ class HistoryExport:
         year = today.strftime("%Y")
 
         file_name = f"temperatures_{year}_{month}_{day}"
+
+        # Edit label so users know that their export has been done
+        success_string = ("Export Successful! The file is called "
+                          f"{file_name}.txt")
+        self.export_filename_label.config(fg="#009900", text=success_string,
+                                          font=("Arial", "12", "bold"))
+
         write_to = f"{file_name}.txt"
 
         with open(write_to, "w") as text_file:
